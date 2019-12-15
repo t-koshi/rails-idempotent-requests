@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_12_15_002826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "idempotency_actions", force: :cascade do |t|
+    t.string "idempotency_key", null: false
+    t.integer "status"
+    t.text "body"
+    t.text "headers"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["idempotency_key"], name: "index_idempotency_actions_on_idempotency_key", unique: true
+  end
 
 end
